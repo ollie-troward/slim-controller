@@ -1,0 +1,30 @@
+{
+    "name": "ollie-troward/slim-controller",
+    "description": "Controller extension for Slim",
+    "type": "library",
+    "require": {
+        "symfony/console": "^2.7"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^2.3",
+        "phpspec/nyan-formatters": "1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Troward\\SlimController\\": "src/Troward/SlimController/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "spec\\": "spec/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ollie Troward",
+            "email": "ollie@ollietroward.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
