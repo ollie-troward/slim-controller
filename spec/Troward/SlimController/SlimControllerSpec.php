@@ -32,10 +32,12 @@ class SlimControllerSpec extends ObjectBehavior
 
     function it_accepts_an_array_of_valid_routes()
     {
+        $app = new Slim;
+        $config = ['namespace' => 'spec\\Troward\\Controllers\\'];
+
+        $this->beConstructedWith($app, $config);
+
         $routes = [
-            'RESOURCE' => [
-                'user' => 'UserController'
-            ],
             'GET' => [
                 '/' => 'UserController@index'
             ],

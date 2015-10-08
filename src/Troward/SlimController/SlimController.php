@@ -68,6 +68,7 @@ class SlimController
 
     /**
      * @param array $routes
+     * @return void
      * @throws \InvalidArgumentException
      */
     public function routes($routes = [])
@@ -76,8 +77,30 @@ class SlimController
             if (!in_array($method, $this->routeMethods)) {
                 throw new \InvalidArgumentException('Invalid route method: ' . $method);
             }
-        }
 
+            foreach ($route as $uri => $target) {
+                $targetParts = explode('@', $target);
+
+                if (count($targetParts) != 2) {
+                    throw new \InvalidArgumentException('Invalid controller structure: ' . $target);
+                }
+
+                $controller = $targetParts[0];
+                $function = $targetParts[1];
+
+                if (isset($this->config['namespace'])) {
+                    $controller = $this->config['namespace'] . $controller;
+                }
+
+                $callBack = [new $controller($this->app), $function];
+
+                if (!is_callable($callBack)) {
+                    throw new \InvalidArgumentException($controller . '::' . $function . ' is not callable');
+                }
+
+                $this->app->$method($uri, $callBack);
+            }
+        }
         $this->routes = $routes;
     }
 }
