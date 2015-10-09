@@ -28,4 +28,30 @@ class ControllerSpec extends ObjectBehavior
         $app = new Slim;
         $this->setApp($app);
     }
+
+    /**
+     * It returns the current application request.
+     */
+    function it_returns_the_current_request()
+    {
+        $app = new Slim;
+        $this->setApp($app);
+        $app->run();
+
+        $this->request()
+            ->shouldReturnAnInstanceOf('Slim\Http\Request');
+    }
+
+    /**
+     * It returns the current application response.
+     */
+    function it_returns_the_current_response()
+    {
+        $app = new Slim;
+        $this->setApp($app);
+        $app->run();
+
+        $this->response()
+            ->shouldReturnAnInstanceOf('Slim\Http\Response');
+    }
 }
