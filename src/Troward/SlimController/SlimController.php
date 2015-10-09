@@ -108,6 +108,10 @@ class SlimController
                     $controller = $this->config['namespace'] . $controller;
                 }
 
+                if (!class_exists($controller)) {
+                    throw new \InvalidArgumentException('Invalid controller specified: ' . $controller);
+                }
+
                 $baseController = new $controller;
                 $baseController->setApp($this->app);
 

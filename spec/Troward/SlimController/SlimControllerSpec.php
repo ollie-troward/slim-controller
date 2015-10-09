@@ -149,6 +149,28 @@ class SlimControllerSpec extends ObjectBehavior
     }
 
     /**
+     * It disallows invalid controller declarations.
+     */
+    function it_disallows_invalid_controllers()
+    {
+        $app    = new Slim;
+        $config = ['namespace' => 'spec\\Troward\\Controllers\\'];
+
+        $this->beConstructedWith($app, $config);
+
+        $routes = [
+            'GET' => [
+                '/' => 'SuperController@index'
+            ],
+        ];
+
+        $expectedController = $config['namespace'] . explode('@', $routes['GET']['/'])[0];
+
+        $this->shouldThrow(new \InvalidArgumentException('Invalid controller specified: ' . $expectedController))
+            ->duringRoutes($routes);
+    }
+
+    /**
      * It disallows functions that cannot be called.
      */
     function it_disallows_functions_that_cannot_be_called()
