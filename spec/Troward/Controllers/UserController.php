@@ -2,7 +2,9 @@
 
 namespace spec\Troward\Controllers;
 
-class UserController
+use Troward\SlimController\Controller;
+
+class UserController extends Controller
 {
     public function index()
     {
