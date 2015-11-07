@@ -7,7 +7,8 @@
     },
     "require-dev": {
         "phpspec/phpspec": "^2.3",
-        "phpspec/nyan-formatters": "1.*"
+        "phpspec/nyan-formatters": "1.*",
+        "slim/slim": "^2.6"
     },
     "autoload": {
         "psr-4": {
