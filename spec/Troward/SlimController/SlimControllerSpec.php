@@ -13,6 +13,11 @@ use Slim\Slim;
 class SlimControllerSpec extends ObjectBehavior
 {
     /**
+     * @var Slim
+     */
+    protected $app;
+
+    /**
      * It can be initialized.
      */
     function it_is_initializable()
@@ -25,8 +30,8 @@ class SlimControllerSpec extends ObjectBehavior
      */
     function let()
     {
-        $app = new Slim;
-        $this->beConstructedWith($app);
+        $this->app = new Slim;
+        $this->beConstructedWith($this->app);
     }
 
     /**
@@ -34,13 +39,11 @@ class SlimControllerSpec extends ObjectBehavior
      */
     function it_returns_an_application_namespace()
     {
-        $app    = new Slim;
         $config = ['namespace' => 'MyApp\\Controllers\\'];
 
-        $this->beConstructedWith($app, $config);
+        $this->beConstructedWith($this->app, $config);
 
-        $this->getConfig('namespace')
-            ->shouldReturn($config['namespace']);
+        $this->getConfig('namespace')->shouldReturn($config['namespace']);
     }
 
     /**
@@ -48,13 +51,11 @@ class SlimControllerSpec extends ObjectBehavior
      */
     function it_returns_all_config_options()
     {
-        $app    = new Slim;
         $config = ['namespace' => 'MyApp\\Controllers\\'];
 
-        $this->beConstructedWith($app, $config);
+        $this->beConstructedWith($this->app, $config);
 
-        $this->getConfig()
-            ->shouldReturn($config);
+        $this->getConfig()->shouldReturn($config);
     }
 
     /**
@@ -62,10 +63,9 @@ class SlimControllerSpec extends ObjectBehavior
      */
     function it_disallows_invalid_config_options()
     {
-        $app    = new Slim;
         $config = ['namespace' => 'MyApp\\Controllers\\'];
 
-        $this->beConstructedWith($app, $config);
+        $this->beConstructedWith($this->app, $config);
 
         $expectedKey = 'food';
 
@@ -78,19 +78,18 @@ class SlimControllerSpec extends ObjectBehavior
      */
     function it_accepts_an_array_of_valid_routes()
     {
-        $app    = new Slim;
         $config = ['namespace' => 'spec\\Troward\\Controllers\\'];
 
-        $this->beConstructedWith($app, $config);
+        $this->beConstructedWith($this->app, $config);
 
         $routes = [
-            'GET'    => [
+            'GET' => [
                 '/' => 'UserController@index'
             ],
-            'POST'   => [
+            'POST' => [
                 '/' => 'UserController@create'
             ],
-            'PUT'    => [
+            'PUT' => [
                 '/' => 'UserController@update'
             ],
             'DELETE' => [
@@ -100,8 +99,7 @@ class SlimControllerSpec extends ObjectBehavior
 
         $this->routes($routes);
 
-        $this->getRoutes()
-            ->shouldReturn($routes);
+        $this->getRoutes()->shouldReturn($routes);
     }
 
     /**
@@ -109,10 +107,9 @@ class SlimControllerSpec extends ObjectBehavior
      */
     function it_disallows_an_invalid_method()
     {
-        $app    = new Slim;
         $config = ['namespace' => 'spec\\Troward\\Controllers\\'];
 
-        $this->beConstructedWith($app, $config);
+        $this->beConstructedWith($this->app, $config);
 
         $routes = [
             'EAT' => [
@@ -131,10 +128,9 @@ class SlimControllerSpec extends ObjectBehavior
      */
     function it_disallows_an_invalid_controller_structure()
     {
-        $app    = new Slim;
         $config = ['namespace' => 'spec\\Troward\\Controllers\\'];
 
-        $this->beConstructedWith($app, $config);
+        $this->beConstructedWith($this->app, $config);
 
         $routes = [
             'GET' => [
@@ -153,10 +149,9 @@ class SlimControllerSpec extends ObjectBehavior
      */
     function it_disallows_invalid_controllers()
     {
-        $app    = new Slim;
         $config = ['namespace' => 'spec\\Troward\\Controllers\\'];
 
-        $this->beConstructedWith($app, $config);
+        $this->beConstructedWith($this->app, $config);
 
         $routes = [
             'GET' => [
@@ -175,10 +170,9 @@ class SlimControllerSpec extends ObjectBehavior
      */
     function it_disallows_functions_that_cannot_be_called()
     {
-        $app    = new Slim;
         $config = ['namespace' => 'spec\\Troward\\Controllers\\'];
 
-        $this->beConstructedWith($app, $config);
+        $this->beConstructedWith($this->app, $config);
 
         $routes = [
             'GET' => [

@@ -4,6 +4,7 @@ namespace spec\Troward\SlimController;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Slim\Environment;
 use Slim\Slim;
 
 /**
@@ -13,6 +14,11 @@ use Slim\Slim;
 class ControllerSpec extends ObjectBehavior
 {
     /**
+     * @var Slim
+     */
+    protected $app;
+
+    /**
      * It can be initialized.
      */
     function it_is_initializable()
@@ -21,12 +27,13 @@ class ControllerSpec extends ObjectBehavior
     }
 
     /**
-     * It accepts an instance of Slim.
+     * Set the application instance.
      */
-    function it_accepts_an_app_instance()
+    function let()
     {
-        $app = new Slim;
-        $this->setApp($app);
+        $this->app = new Slim();
+        $this->app->environment = Environment::mock();
+        $this->setApp($this->app);
     }
 
     /**
@@ -34,12 +41,7 @@ class ControllerSpec extends ObjectBehavior
      */
     function it_returns_the_current_request()
     {
-        $app = new Slim;
-        $this->setApp($app);
-        $app->run();
-
-        $this->request()
-            ->shouldReturnAnInstanceOf('Slim\Http\Request');
+        $this->request()->shouldReturnAnInstanceOf('Slim\Http\Request');
     }
 
     /**
@@ -47,11 +49,6 @@ class ControllerSpec extends ObjectBehavior
      */
     function it_returns_the_current_response()
     {
-        $app = new Slim;
-        $this->setApp($app);
-        $app->run();
-
-        $this->response()
-            ->shouldReturnAnInstanceOf('Slim\Http\Response');
+        $this->response()->shouldReturnAnInstanceOf('Slim\Http\Response');
     }
 }
