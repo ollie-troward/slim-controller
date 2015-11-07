@@ -2,13 +2,15 @@
 
 namespace Troward\SlimController;
 
+use Slim\Http\Request;
+use Slim\Http\Response;
 use Slim\Slim;
 
 /**
  * Class Controller
  * @package Troward\SlimController
  */
-class Controller
+class Controller implements ControllerInterface
 {
     /**
      * The Slim instance.
@@ -41,7 +43,7 @@ class Controller
     /**
      * Retrieve the current application request.
      *
-     * @return \Slim\Http\Request
+     * @return Request
      */
     public function request()
     {
@@ -51,7 +53,7 @@ class Controller
     /**
      * Retrieve the current application response.
      *
-     * @return \Slim\Http\Response
+     * @return Response
      */
     public function response()
     {
