@@ -36,7 +36,7 @@ class SlimController
      *
      * @var array
      */
-    private $routeMethods = ['GET', 'POST', 'PUT', 'DELETE', 'RESOURCE'];
+    private $routeMethods = ['GET', 'POST', 'PUT', 'DELETE'];
 
     /**
      * Initialised controllers.
